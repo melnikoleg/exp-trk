@@ -1,14 +1,13 @@
-# Expense Tracker App
+## local run
 
-A modern expense tracking application built with React, TypeScript, and Vite.
+```bash
+sh start.sh
+```
+## Docker compose
 
-## Key Features
-
-- User authentication with protected routes
-- Expense tracking and categorization
-- Interactive dashboard with visualizations
-- Responsive design for both desktop and mobile
-- Error tracking and monitoring with Sentry
+```bash
+docker compose up
+```
 
 ## Technology Stack
 
