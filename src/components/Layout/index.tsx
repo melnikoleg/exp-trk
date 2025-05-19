@@ -65,8 +65,8 @@ export const Layout: FC<IProps> = ({ children }) => {
           typeof extractedData.amount === "string"
             ? parseFloat(extractedData.amount)
             : extractedData.amount,
-        category: extractedData.category || "other_payments", 
-        currency: extractedData.currency || "USD", 
+        category: extractedData.category || "other_payments",
+        currency: extractedData.currency || "USD",
         date: extractedData.date || new Date().toISOString().split("T")[0],
         description: extractedData.description || "",
       };
@@ -74,7 +74,9 @@ export const Layout: FC<IProps> = ({ children }) => {
       await createExpense(expenseData);
       setIsUploadModalOpen(false);
     } catch (err) {
-      const error = err as Error & { response?: { data?: { message?: string } } };
+      const error = err as Error & {
+        response?: { data?: { message?: string } };
+      };
       setUploadError(
         error.response?.data?.message || "Failed to extract invoice data.",
       );
@@ -92,8 +94,6 @@ export const Layout: FC<IProps> = ({ children }) => {
       headerMobileMessage = "Add";
     }
   }
-
-
 
   return (
     <div className={styles.container}>

@@ -5,19 +5,22 @@ import styles from "./index.module.css";
 
 const AuthLayout: React.FC = () => {
   const location = useLocation();
-  
+
   const isPage = (path: string) => location.pathname.includes(path);
-  
+
   const getSubtitle = (): string | null => {
-    if (isPage("sign-in")) return "Welcome back! Sign in to manage your expenses";
-    if (isPage("sign-up")) return "Create a new account to start tracking expenses";
-    if (isPage("forgot-password")) return "Enter your email to reset your password";
+    if (isPage("sign-in"))
+      return "Welcome back! Sign in to manage your expenses";
+    if (isPage("sign-up"))
+      return "Create a new account to start tracking expenses";
+    if (isPage("forgot-password"))
+      return "Enter your email to reset your password";
     if (isPage("verification-code")) return "Enter the code sent to your email";
     if (isPage("restore-password")) return "Create a new secure password";
     if (isPage("success")) return null;
     return null;
   };
-  
+
   const subtitle = getSubtitle();
 
   return (

@@ -39,17 +39,20 @@ export const ExpenseTable: FC<IProps<Expense>> = ({
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
 
   // Track rendering performance of this component
-  useRenderMetrics('ExpenseTable');
-  
+  useRenderMetrics("ExpenseTable");
+
   const handleMobileClick = useCallback((id: number) => {
     setSelectedExpenseId(id);
     setMobileModalOpen(true);
   }, []);
 
-  const handleEdit = useCallback((id: number) => {
-    setMobileModalOpen(false);
-    onEdit(id);
-  }, [onEdit]);
+  const handleEdit = useCallback(
+    (id: number) => {
+      setMobileModalOpen(false);
+      onEdit(id);
+    },
+    [onEdit],
+  );
 
   const handleDelete = useCallback((id: number) => {
     setSelectedExpenseId(id);
@@ -163,4 +166,4 @@ export const ExpenseTable: FC<IProps<Expense>> = ({
 };
 
 // Export a memoized version of ExpenseTable
-export default withMemoization(ExpenseTable, 'ExpenseTable');
+export default withMemoization(ExpenseTable, "ExpenseTable");

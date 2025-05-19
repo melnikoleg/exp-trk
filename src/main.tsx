@@ -1,4 +1,4 @@
-import './wdyr'; // <-- This must be first import
+import "./wdyr"; // <-- This must be first import
 
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";

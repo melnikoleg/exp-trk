@@ -1,8 +1,12 @@
 // src/components/DevTools/index.tsx
-import React, { useState, useEffect, useCallback } from 'react';
-import { getPerformanceMetrics, clearPerformanceMetrics, PerformanceMetric } from '../../utils/performance';
-import { benchmarkTool, BenchmarkComparison } from '../../utils/benchmark';
-import styles from './index.module.css';
+import React, { useState, useEffect, useCallback } from "react";
+import {
+  getPerformanceMetrics,
+  clearPerformanceMetrics,
+  PerformanceMetric,
+} from "../../utils/performance";
+import { benchmarkTool, BenchmarkComparison } from "../../utils/benchmark";
+import styles from "./index.module.css";
 
 interface DevToolsProps {
   show?: boolean;
@@ -12,27 +16,34 @@ const DevTools: React.FC<DevToolsProps> = ({ show = true }) => {
   const [metrics, setMetrics] = useState<PerformanceMetric[]>([]);
   const [isVisible, setIsVisible] = useState(false);
   const [refreshInterval, setRefreshInterval] = useState<number | null>(null);
-  const [benchmarkMode, setBenchmarkMode] = useState<'idle' | 'before' | 'after'>('idle');
-  const [benchmarkResults, setBenchmarkResults] = useState<BenchmarkComparison[]>([]);
+  const [benchmarkMode, setBenchmarkMode] = useState<
+    "idle" | "before" | "after"
+  >("idle");
+  const [benchmarkResults, setBenchmarkResults] = useState<
+    BenchmarkComparison[]
+  >([]);
 
   // Group metrics by component name and calculate averages
   const groupedMetrics = React.useMemo(() => {
-    const grouped: Record<string, { count: number; totalTime: number; average: number }> = {};
-    
+    const grouped: Record<
+      string,
+      { count: number; totalTime: number; average: number }
+    > = {};
+
     metrics.forEach((metric) => {
       if (!grouped[metric.componentName]) {
         grouped[metric.componentName] = { count: 0, totalTime: 0, average: 0 };
       }
-      
+
       grouped[metric.componentName].count += 1;
       grouped[metric.componentName].totalTime += metric.renderTime;
     });
-    
+
     // Calculate averages
     Object.keys(grouped).forEach((key) => {
       grouped[key].average = grouped[key].totalTime / grouped[key].count;
     });
-    
+
     // Sort by average render time (slowest first)
     return Object.entries(grouped)
       .sort(([, a], [, b]) => b.average - a.average)
@@ -41,7 +52,7 @@ const DevTools: React.FC<DevToolsProps> = ({ show = true }) => {
 
   // Toggle visibility
   const toggleVisibility = useCallback(() => {
-    setIsVisible(prev => !prev);
+    setIsVisible((prev) => !prev);
   }, []);
 
   // Clear metrics
@@ -66,7 +77,7 @@ const DevTools: React.FC<DevToolsProps> = ({ show = true }) => {
   // Start benchmark process
   const startBenchmark = useCallback(() => {
     benchmarkTool.startBenchmark();
-    setBenchmarkMode('before');
+    setBenchmarkMode("before");
     setBenchmarkResults([]);
     console.log('[DevTools] Starting benchmark - collect "before" metrics');
   }, []);
@@ -74,8 +85,10 @@ const DevTools: React.FC<DevToolsProps> = ({ show = true }) => {
   // Record before snapshot
   const recordBeforeSnapshot = useCallback(() => {
     benchmarkTool.takeBeforeSnapshot();
-    setBenchmarkMode('after');
-    console.log('[DevTools] Before snapshot recorded - now collect "after" metrics');
+    setBenchmarkMode("after");
+    console.log(
+      '[DevTools] Before snapshot recorded - now collect "after" metrics',
+    );
   }, []);
 
   // Record after snapshot and compare
@@ -83,18 +96,18 @@ const DevTools: React.FC<DevToolsProps> = ({ show = true }) => {
     benchmarkTool.takeAfterSnapshot();
     const results = benchmarkTool.compareSnapshots();
     setBenchmarkResults(results);
-    setBenchmarkMode('idle');
-    console.log('[DevTools] Benchmark completed', results);
+    setBenchmarkMode("idle");
+    console.log("[DevTools] Benchmark completed", results);
   }, []);
 
   // Export benchmark results
   const exportBenchmark = useCallback(() => {
     const resultsJson = benchmarkTool.exportResults();
-    
+
     // Create a downloadable file
-    const blob = new Blob([resultsJson], { type: 'application/json' });
+    const blob = new Blob([resultsJson], { type: "application/json" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
     a.download = `benchmark-results-${new Date().toISOString()}.json`;
     document.body.appendChild(a);
@@ -106,7 +119,7 @@ const DevTools: React.FC<DevToolsProps> = ({ show = true }) => {
   // Initialize metrics
   useEffect(() => {
     setMetrics(getPerformanceMetrics());
-    
+
     // Clean up interval on unmount
     return () => {
       if (refreshInterval) {
@@ -118,30 +131,30 @@ const DevTools: React.FC<DevToolsProps> = ({ show = true }) => {
   // Show/hide with keyboard shortcut (Ctrl+Shift+P)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.ctrlKey && e.shiftKey && e.key === 'P') {
+      if (e.ctrlKey && e.shiftKey && e.key === "P") {
         e.preventDefault();
         toggleVisibility();
       }
     };
-    
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [toggleVisibility]);
 
   if (!show || !isVisible) {
     return (
-      <div 
-        style={{ 
-          position: 'fixed', 
-          bottom: '10px', 
-          right: '10px', 
-          background: '#333', 
-          color: 'white',
-          padding: '5px 10px',
-          borderRadius: '3px',
-          cursor: 'pointer',
+      <div
+        style={{
+          position: "fixed",
+          bottom: "10px",
+          right: "10px",
+          background: "#333",
+          color: "white",
+          padding: "5px 10px",
+          borderRadius: "3px",
+          cursor: "pointer",
           zIndex: 10000,
-          fontSize: '12px'
+          fontSize: "12px",
         }}
         onClick={toggleVisibility}
       >
@@ -156,7 +169,7 @@ const DevTools: React.FC<DevToolsProps> = ({ show = true }) => {
         <span className={styles.devToolsTitle}>React Performance DevTools</span>
         <div className={styles.devToolsControls}>
           <button className={styles.devToolsButton} onClick={toggleRefresh}>
-            {refreshInterval ? 'Stop Refresh' : 'Auto Refresh'}
+            {refreshInterval ? "Stop Refresh" : "Auto Refresh"}
           </button>
           <button className={styles.devToolsButton} onClick={handleClear}>
             Clear
@@ -166,56 +179,80 @@ const DevTools: React.FC<DevToolsProps> = ({ show = true }) => {
           </button>
         </div>
       </div>
-      
-      <div className={styles.benchmarkControls} style={{ margin: '10px 0', display: 'flex', gap: '5px' }}>
-        {benchmarkMode === 'idle' && (
+
+      <div
+        className={styles.benchmarkControls}
+        style={{ margin: "10px 0", display: "flex", gap: "5px" }}
+      >
+        {benchmarkMode === "idle" && (
           <button className={styles.devToolsButton} onClick={startBenchmark}>
             Start Benchmark
           </button>
         )}
-        
-        {benchmarkMode === 'before' && (
-          <button className={styles.devToolsButton} onClick={recordBeforeSnapshot}>
+
+        {benchmarkMode === "before" && (
+          <button
+            className={styles.devToolsButton}
+            onClick={recordBeforeSnapshot}
+          >
             Record "Before" Snapshot
           </button>
         )}
-        
-        {benchmarkMode === 'after' && (
-          <button className={styles.devToolsButton} onClick={recordAfterSnapshot}>
+
+        {benchmarkMode === "after" && (
+          <button
+            className={styles.devToolsButton}
+            onClick={recordAfterSnapshot}
+          >
             Record "After" Snapshot
           </button>
         )}
-        
+
         {benchmarkResults.length > 0 && (
           <button className={styles.devToolsButton} onClick={exportBenchmark}>
             Export Results
           </button>
         )}
       </div>
-      
+
       {benchmarkResults.length > 0 && (
-        <div className={styles.benchmarkResults} style={{ margin: '10px 0', padding: '10px', background: 'rgba(0,0,0,0.3)' }}>
-          <h4 style={{ margin: '0 0 8px' }}>Benchmark Comparison</h4>
-          <table style={{ width: '100%', fontSize: '12px' }}>
+        <div
+          className={styles.benchmarkResults}
+          style={{
+            margin: "10px 0",
+            padding: "10px",
+            background: "rgba(0,0,0,0.3)",
+          }}
+        >
+          <h4 style={{ margin: "0 0 8px" }}>Benchmark Comparison</h4>
+          <table style={{ width: "100%", fontSize: "12px" }}>
             <thead>
               <tr>
-                <th style={{ textAlign: 'left' }}>Component</th>
+                <th style={{ textAlign: "left" }}>Component</th>
                 <th>Before (ms)</th>
                 <th>After (ms)</th>
                 <th>Improvement</th>
               </tr>
             </thead>
             <tbody>
-              {benchmarkResults.map(result => (
+              {benchmarkResults.map((result) => (
                 <tr key={result.componentName}>
                   <td>{result.componentName}</td>
-                  <td style={{ textAlign: 'center' }}>{result.beforeAvgTime.toFixed(2)}</td>
-                  <td style={{ textAlign: 'center' }}>{result.afterAvgTime.toFixed(2)}</td>
-                  <td style={{ 
-                    textAlign: 'right',
-                    color: result.percentImprovement > 0 ? '#8aff8a' : '#ff8a8a'
-                  }}>
-                    {result.percentImprovement > 0 ? '+' : ''}{result.percentImprovement.toFixed(2)}%
+                  <td style={{ textAlign: "center" }}>
+                    {result.beforeAvgTime.toFixed(2)}
+                  </td>
+                  <td style={{ textAlign: "center" }}>
+                    {result.afterAvgTime.toFixed(2)}
+                  </td>
+                  <td
+                    style={{
+                      textAlign: "right",
+                      color:
+                        result.percentImprovement > 0 ? "#8aff8a" : "#ff8a8a",
+                    }}
+                  >
+                    {result.percentImprovement > 0 ? "+" : ""}
+                    {result.percentImprovement.toFixed(2)}%
                   </td>
                 </tr>
               ))}
@@ -223,16 +260,20 @@ const DevTools: React.FC<DevToolsProps> = ({ show = true }) => {
           </table>
         </div>
       )}
-      
+
       <div className={styles.devToolsMetrics}>
         <p>Total components tracked: {groupedMetrics.length}</p>
-        
+
         {groupedMetrics.map((metric) => (
           <div key={metric.name} className={styles.metricItem}>
             <div className={styles.metricItemHeader}>
               <span className={styles.metricName}>{metric.name}</span>
-              <span 
-                className={metric.average > 5 ? styles.metricValueSlow : styles.metricValue}
+              <span
+                className={
+                  metric.average > 5
+                    ? styles.metricValueSlow
+                    : styles.metricValue
+                }
               >
                 {metric.average.toFixed(2)}ms
               </span>
@@ -244,36 +285,36 @@ const DevTools: React.FC<DevToolsProps> = ({ show = true }) => {
 
       <div className={styles.benchmarkControls}>
         <h3>Benchmark Controls</h3>
-        <button 
-          className={styles.devToolsButton} 
+        <button
+          className={styles.devToolsButton}
           onClick={startBenchmark}
-          disabled={benchmarkMode !== 'idle'}
+          disabled={benchmarkMode !== "idle"}
         >
           Start Benchmark
         </button>
-        <button 
-          className={styles.devToolsButton} 
+        <button
+          className={styles.devToolsButton}
           onClick={recordBeforeSnapshot}
-          disabled={benchmarkMode !== 'before'}
+          disabled={benchmarkMode !== "before"}
         >
           Record Before Snapshot
         </button>
-        <button 
-          className={styles.devToolsButton} 
+        <button
+          className={styles.devToolsButton}
           onClick={recordAfterSnapshot}
-          disabled={benchmarkMode !== 'after'}
+          disabled={benchmarkMode !== "after"}
         >
           Record After Snapshot
         </button>
-        <button 
-          className={styles.devToolsButton} 
+        <button
+          className={styles.devToolsButton}
           onClick={exportBenchmark}
           disabled={benchmarkResults.length === 0}
         >
           Export Results
         </button>
-        
-        {benchmarkMode !== 'idle' && (
+
+        {benchmarkMode !== "idle" && (
           <div>
             <p>Benchmark Mode: {benchmarkMode}</p>
           </div>

@@ -39,7 +39,7 @@ export const Input: FC<IProps> = ({
             {
               [styles["input-error"]]: error,
               [styles["with-children"]]: !!children,
-            }
+            },
           )}
           data-testid="input"
           data-error={error}

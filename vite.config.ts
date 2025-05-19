@@ -12,19 +12,20 @@ export default defineConfig({
       project: process.env.SENTRY_PROJECT || "exp-trk",
       // Auth token can be obtained from Sentry dashboard
       authToken: process.env.SENTRY_AUTH_TOKEN,
-      
+
       // Only upload source maps in production builds
       disable: process.env.NODE_ENV !== "production",
-      
+
       // Automatically upload source maps
       sourcemaps: {
         // Include source maps in your build assets directory
         assets: "./dist/**",
       },
-      
+
       // Specify the release version - use the same value as in Sentry.init()
       release: {
-        name: process.env.VITE_APP_VERSION || `exp-trk@${new Date().toISOString()}`,
+        name:
+          process.env.VITE_APP_VERSION || `exp-trk@${new Date().toISOString()}`,
       },
     }),
   ],

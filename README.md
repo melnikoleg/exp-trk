@@ -3,6 +3,7 @@
 ```bash
 sh start.sh
 ```
+
 ## Docker compose
 
 ```bash
@@ -23,7 +24,7 @@ docker compose up
 
 If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-```js
+````js
 ## Documentation
 
 The codebase includes detailed documentation on various aspects of the application:
@@ -47,18 +48,21 @@ npm test
 
 # Build for production
 npm run build
-```
+````
+
     ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
+
+],
+languageOptions: {
+// other options...
+parserOptions: {
+project: ["./tsconfig.node.json", "./tsconfig.app.json"],
+tsconfigRootDir: import.meta.dirname,
+},
+},
 });
-```
+
+````
 
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
@@ -80,4 +84,4 @@ export default tseslint.config({
     ...reactDom.configs.recommended.rules,
   },
 });
-```
+````

@@ -5,7 +5,12 @@ import { Button } from "../components/Button";
 import { useNavigate } from "react-router-dom";
 import { useStore } from "../store/storeContext";
 import { Layout } from "../components/Layout";
-import { setUserContext, clearUserContext, trackUserAction, captureException } from "../utils/sentry";
+import {
+  setUserContext,
+  clearUserContext,
+  trackUserAction,
+  captureException,
+} from "../utils/sentry";
 import SentryTest from "../components/SentryTest";
 
 const Profile: React.FC = () => {
@@ -19,9 +24,9 @@ const Profile: React.FC = () => {
     if (user) {
       setUserContext(String(user.id), {
         email: user.email,
-        name: user.name || 'Unknown'
+        name: user.name || "Unknown",
       });
-      trackUserAction('profile_viewed', { has_profile_info: !!user.name });
+      trackUserAction("profile_viewed", { has_profile_info: !!user.name });
     }
     return () => {
       clearUserContext();
@@ -32,37 +37,39 @@ const Profile: React.FC = () => {
     fetchUserProfile()
       .then((userData) => {
         setUser(userData);
-        trackUserAction('profile_loaded_successfully');
+        trackUserAction("profile_loaded_successfully");
       })
       .catch((err) => {
-        const errorMessage = "Failed to load user profile: " + (err.message || "Unknown error");
+        const errorMessage =
+          "Failed to load user profile: " + (err.message || "Unknown error");
         setError(errorMessage);
         captureException(err, {
-          context: 'Profile component',
-          action: 'fetchUserProfile'
+          context: "Profile component",
+          action: "fetchUserProfile",
         });
       })
       .finally(() => setLoading(false));
   }, []);
-  
+
   const handleLogout = async () => {
     try {
-      trackUserAction('logout_attempt');
+      trackUserAction("logout_attempt");
       await logout();
       clearUserContext();
       setIsAuthenticated(false);
-      navigate('/sign-in');
-      trackUserAction('logout_successful');
+      navigate("/sign-in");
+      trackUserAction("logout_successful");
     } catch (error) {
       console.error("Logout failed:", error);
-      captureException(error as Error, { action: 'logout' });
+      captureException(error as Error, { action: "logout" });
     }
   };
 
   const renderContent = () => {
     if (loading) return <div className={styles.profileCard}>Loading...</div>;
     if (error) return <div className={styles.profileCard}>{error}</div>;
-    if (!user) return <div className={styles.profileCard}>No user data available</div>;
+    if (!user)
+      return <div className={styles.profileCard}>No user data available</div>;
 
     return (
       <div className={styles.profileCard}>
@@ -76,22 +83,18 @@ const Profile: React.FC = () => {
           </div>
         )}
         <div className={styles.profileActions}>
-          <Button variant="danger" onClick={handleLogout}>Logout</Button>
+          <Button variant="danger" onClick={handleLogout}>
+            Logout
+          </Button>
         </div>
-        
+
         {/* Only show the Sentry test component in development mode */}
-        {import.meta.env.DEV && (
-          <SentryTest />
-        )}
+        {import.meta.env.DEV && <SentryTest />}
       </div>
     );
   };
 
-  return (
-    <Layout>
-      {renderContent()}
-    </Layout>
-  );
+  return <Layout>{renderContent()}</Layout>;
 };
 
 export default Profile;

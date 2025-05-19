@@ -8,8 +8,8 @@ import { useOptimizedCallback } from "../hooks/useOptimizedHandlers";
 
 const Main = () => {
   // Track rendering performance
-  useRenderMetrics('MainPage');
-  
+  useRenderMetrics("MainPage");
+
   const {
     expenses,
     isLoading,
@@ -21,22 +21,34 @@ const Main = () => {
     fromDate,
     toDate,
   } = useStore();
-  
+
   // Optimize the edit expense handler
-  const handleEditExpense = useOptimizedCallback((id: number) => {
-    editExpense(id);
-  }, [editExpense], 'editExpense');
-  
+  const handleEditExpense = useOptimizedCallback(
+    (id: number) => {
+      editExpense(id);
+    },
+    [editExpense],
+    "editExpense",
+  );
+
   // Optimize the delete expense handler
-  const handleDeleteExpense = useOptimizedCallback((id: number) => {
-    deleteExpense(id);
-  }, [deleteExpense], 'deleteExpense');
-  
+  const handleDeleteExpense = useOptimizedCallback(
+    (id: number) => {
+      deleteExpense(id);
+    },
+    [deleteExpense],
+    "deleteExpense",
+  );
+
   // Optimize the mobile click handler
-  const handleMobileClick = useOptimizedCallback((id: number) => {
-    editExpense(id);
-  }, [editExpense], 'mobileClick');
-  
+  const handleMobileClick = useOptimizedCallback(
+    (id: number) => {
+      editExpense(id);
+    },
+    [editExpense],
+    "mobileClick",
+  );
+
   useEffect(() => {
     fetchStoreExpenses({ fromDate, toDate });
   }, [fetchStoreExpenses, fromDate, toDate]);
@@ -58,4 +70,4 @@ const Main = () => {
 };
 
 // Export a memoized version of the Main component
-export default withMemoization(Main, 'MainPage');
+export default withMemoization(Main, "MainPage");

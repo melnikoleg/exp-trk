@@ -33,7 +33,7 @@ const SignIn = () => {
   } = useForm<SignInInputs>({
     resolver: yupResolver(schema),
   });
-  
+
   // Get the path user was trying to access before being redirected to login
   const from = location.state?.from?.pathname || "/";
 
@@ -47,41 +47,40 @@ const SignIn = () => {
     }
   }, [setIsAuthenticated, navigate, from]);
 
-
-
   const onSubmit = async (data: SignInInputs) => {
     setApiError("");
-    trackUserAction('sign_in_attempt', { email: data.email });
-    
+    trackUserAction("sign_in_attempt", { email: data.email });
+
     try {
       const response = await api.post("/auth/login", data);
       setAccessToken(response.data.access_token);
       setIsAuthenticated(true);
-      trackUserAction('sign_in_success', { email: data.email });
+      trackUserAction("sign_in_success", { email: data.email });
       navigate(from, { replace: true });
     } catch (err) {
       // Type assertion to Error to satisfy captureException requirements
-      const error = err as Error & { 
-        response?: { 
-          data?: { message?: string }, 
-          status?: number 
-        } 
+      const error = err as Error & {
+        response?: {
+          data?: { message?: string };
+          status?: number;
+        };
       };
-      const errorMessage = error.response?.data?.message || "Invalid credentials";
+      const errorMessage =
+        error.response?.data?.message || "Invalid credentials";
       setApiError(errorMessage);
-      
+
       // Track login failures for security monitoring
       captureException(error, {
-        context: 'Authentication',
-        action: 'sign_in',
-        errorType: error.response?.status || 'unknown',
-        errorMessage
+        context: "Authentication",
+        action: "sign_in",
+        errorType: error.response?.status || "unknown",
+        errorMessage,
       });
-      
-      trackUserAction('sign_in_failed', {
+
+      trackUserAction("sign_in_failed", {
         email: data.email,
         reason: errorMessage,
-        statusCode: error.response?.status || 0
+        statusCode: error.response?.status || 0,
       });
     }
   };
@@ -112,7 +111,11 @@ const SignIn = () => {
           />
         </div>
         <div className={styles.field}>
-          <Link to="/forgot-password" className={styles.link} style={{ fontSize: "0.9rem" }}>
+          <Link
+            to="/forgot-password"
+            className={styles.link}
+            style={{ fontSize: "0.9rem" }}
+          >
             Forgot password?
           </Link>
         </div>
@@ -124,7 +127,10 @@ const SignIn = () => {
         </Button>
       </form>
       <div className={styles["form-footer"]}>
-        Don't have an account? <Link to="/sign-up" className={styles.link}>Sign Up</Link>
+        Don't have an account?{" "}
+        <Link to="/sign-up" className={styles.link}>
+          Sign Up
+        </Link>
       </div>
     </div>
   );

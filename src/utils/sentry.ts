@@ -1,7 +1,5 @@
 // Sentry configuration for error tracking and performance monitoring
-import * as Sentry from '@sentry/react';
-
-
+import * as Sentry from "@sentry/react";
 
 interface ErrorContext {
   context?: string;
@@ -18,33 +16,33 @@ interface UserAction {
 /**
  * Initialize Sentry for error tracking and performance monitoring.
  * This should be called before the app renders.
- * 
+ *
  * @param userId Optional user ID to associate with Sentry events.
  * @param environment Current environment (development, staging, production).
  */
-export const initSentry = (userId?: string, environment = 'production') => {
+export const initSentry = (userId?: string, environment = "production") => {
   Sentry.init({
-    dsn: import.meta.env.VITE_SENTRY_DSN || 'YOUR_DSN_VALUE', // Replace with your actual DSN in environment variables
+    dsn: import.meta.env.VITE_SENTRY_DSN || "YOUR_DSN_VALUE", // Replace with your actual DSN in environment variables
     integrations: [
       Sentry.browserTracingIntegration(),
       Sentry.replayIntegration(),
     ],
     // Configure which URLs to trace
-    tracePropagationTargets: ['localhost', /^\//],
-    
+    tracePropagationTargets: ["localhost", /^\//],
+
     // Capture Replay for 10% of all sessions and 100% of sessions with errors
     replaysSessionSampleRate: 0.1,
     replaysOnErrorSampleRate: 1.0,
     environment,
     // Release version helps with source map integration
-    release: import.meta.env.VITE_APP_VERSION || 'dev',
+    release: import.meta.env.VITE_APP_VERSION || "dev",
     // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
     // Adjust this value in production as needed
     tracesSampleRate: 1.0,
     // Enable debug in development only
     debug: import.meta.env.DEV,
   });
-  
+
   // If a user is authenticated, set their identity in Sentry
   if (userId) {
     setUserContext(userId);
@@ -56,10 +54,13 @@ export const initSentry = (userId?: string, environment = 'production') => {
  * @param userId User's unique identifier
  * @param additionalData Additional user data like email, name, etc.
  */
-export const setUserContext = (userId: string, additionalData: Record<string, unknown> = {}) => {
+export const setUserContext = (
+  userId: string,
+  additionalData: Record<string, unknown> = {},
+) => {
   Sentry.setUser({
     id: userId,
-    ...additionalData
+    ...additionalData,
   });
 };
 
@@ -103,8 +104,8 @@ export const captureException = (error: Error, context?: ErrorContext) => {
  * @param level Severity level
  */
 export const captureMessage = (
-  message: string, 
-  level: Sentry.SeverityLevel = 'info'
+  message: string,
+  level: Sentry.SeverityLevel = "info",
 ) => {
   Sentry.captureMessage(message, level);
 };
@@ -116,9 +117,9 @@ export const captureMessage = (
  */
 export const trackUserAction = (action: string, data: UserAction = {}) => {
   Sentry.addBreadcrumb({
-    category: 'user-action',
+    category: "user-action",
     message: action,
-    level: 'info',
-    data
+    level: "info",
+    data,
   });
 };

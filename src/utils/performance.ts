@@ -16,23 +16,28 @@ const MAX_METRICS = 100;
  * @param componentName Name of the component being measured
  * @param renderTime Time taken to render in ms
  */
-export const trackRenderPerformance = (componentName: string, renderTime: number): void => {
+export const trackRenderPerformance = (
+  componentName: string,
+  renderTime: number,
+): void => {
   const metric: PerformanceMetric = {
     componentName,
     renderTime,
     timestamp: Date.now(),
   };
-  
+
   renderMetrics.push(metric);
-  
+
   // Keep the array at a reasonable size
   if (renderMetrics.length > MAX_METRICS) {
     renderMetrics.shift();
   }
-  
+
   // Log to console for development
-  if (process.env.NODE_ENV === 'development') {
-    console.log(`[Performance] ${componentName} rendered in ${renderTime.toFixed(2)}ms`);
+  if (process.env.NODE_ENV === "development") {
+    console.log(
+      `[Performance] ${componentName} rendered in ${renderTime.toFixed(2)}ms`,
+    );
   }
 };
 
@@ -47,13 +52,18 @@ export const getPerformanceMetrics = (): PerformanceMetric[] => {
  * Get average render time for a component
  */
 export const getAverageRenderTime = (componentName: string): number => {
-  const componentMetrics = renderMetrics.filter(m => m.componentName === componentName);
-  
+  const componentMetrics = renderMetrics.filter(
+    (m) => m.componentName === componentName,
+  );
+
   if (componentMetrics.length === 0) {
     return 0;
   }
-  
-  const sum = componentMetrics.reduce((acc, metric) => acc + metric.renderTime, 0);
+
+  const sum = componentMetrics.reduce(
+    (acc, metric) => acc + metric.renderTime,
+    0,
+  );
   return sum / componentMetrics.length;
 };
 

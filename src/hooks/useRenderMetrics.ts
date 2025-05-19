@@ -1,6 +1,6 @@
 // src/hooks/useRenderMetrics.ts
-import { useRef, useEffect } from 'react';
-import { trackRenderPerformance } from '../utils/performance';
+import { useRef, useEffect } from "react";
+import { trackRenderPerformance } from "../utils/performance";
 
 /**
  * Hook to measure and track component render performance
@@ -8,10 +8,10 @@ import { trackRenderPerformance } from '../utils/performance';
  */
 export const useRenderMetrics = (componentName: string): void => {
   const renderStartTime = useRef<number>(0);
-  
+
   // Track when the component starts rendering
   renderStartTime.current = performance.now();
-  
+
   useEffect(() => {
     // Calculate how long the render took
     const renderTime = performance.now() - renderStartTime.current;

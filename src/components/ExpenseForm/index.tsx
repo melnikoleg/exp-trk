@@ -54,17 +54,20 @@ export const ExpenseForm: FC<IProps> = ({
   onSubmit,
   defaultValues = emptyData,
 }) => {
-  useRenderMetrics('ExpenseForm');
+  useRenderMetrics("ExpenseForm");
 
   // Memoize the default form values to prevent unnecessary rerenders
-  const memoizedDefaults = useMemo(() => ({
-    name: defaultValues.name || "",
-    amount: defaultValues.amount,
-    category: defaultValues.category || categoryList[0],
-    currency: defaultValues.currency || currencyList[0], 
-    date: defaultValues.date || new Date().toISOString().split("T")[0],
-    description: defaultValues.description || "",
-  }), [defaultValues]);
+  const memoizedDefaults = useMemo(
+    () => ({
+      name: defaultValues.name || "",
+      amount: defaultValues.amount,
+      category: defaultValues.category || categoryList[0],
+      currency: defaultValues.currency || currencyList[0],
+      date: defaultValues.date || new Date().toISOString().split("T")[0],
+      description: defaultValues.description || "",
+    }),
+    [defaultValues],
+  );
 
   const {
     register,
@@ -74,7 +77,7 @@ export const ExpenseForm: FC<IProps> = ({
   } = useForm<Inputs>({
     defaultValues: emptyData,
     resolver: yupResolver(schema),
-    mode: "onChange", 
+    mode: "onChange",
   });
 
   // Effect to handle form values
@@ -86,15 +89,20 @@ export const ExpenseForm: FC<IProps> = ({
 
   useClickEscape(onClose);
 
-  const handleOnSubmit: SubmitHandler<Inputs> = useCallback((data) => {
-    onSubmit({ ...data, date: formatISO(startOfDay(new Date(data.date))) });
-    onClose();
-  }, [onSubmit, onClose]);
-
-
+  const handleOnSubmit: SubmitHandler<Inputs> = useCallback(
+    (data) => {
+      onSubmit({ ...data, date: formatISO(startOfDay(new Date(data.date))) });
+      onClose();
+    },
+    [onSubmit, onClose],
+  );
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(handleOnSubmit)} data-testid="expense-form">
+    <form
+      className={styles.form}
+      onSubmit={handleSubmit(handleOnSubmit)}
+      data-testid="expense-form"
+    >
       <div className={styles.fields}>
         <div className={styles.field}>
           <InputLabel htmlFor="name">Name</InputLabel>
@@ -113,13 +121,13 @@ export const ExpenseForm: FC<IProps> = ({
           <InputWithCurrency
             id="amount"
             {...register("amount", {
-              valueAsNumber: true, 
-              shouldUnregister: false, 
+              valueAsNumber: true,
+              shouldUnregister: false,
             })}
             error={!!errors.amount}
             helperText={errors?.amount?.message}
             selectProps={register("currency", {
-              shouldUnregister: false, 
+              shouldUnregister: false,
             })}
           />
         </div>
@@ -171,4 +179,4 @@ export const ExpenseForm: FC<IProps> = ({
 };
 
 // Export a memoized version of the ExpenseForm
-export default withMemoization<IProps>(ExpenseForm, 'ExpenseForm');
+export default withMemoization<IProps>(ExpenseForm, "ExpenseForm");

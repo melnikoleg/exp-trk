@@ -95,14 +95,14 @@
     align-items: flex-start;
     padding-top: 40px;
   }
-  
+
   .card {
     padding: 24px 16px;
     min-width: 0;
     max-width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
-  
+
   .box {
     padding: 24px 16px;
     min-width: 0;
@@ -112,26 +112,26 @@
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     background-color: var(--neutral);
   }
-  
+
   .logo {
     font-size: 1.3rem;
   }
-  
+
   .title {
     font-size: 1.5rem;
     margin-bottom: 4px;
   }
-  
+
   .subtitle {
     font-size: 0.9rem;
     padding: 0 10px;
     line-height: 1.4;
   }
-  
+
   .field {
     margin-bottom: 16px;
   }
-  
+
   .form-footer {
     margin-top: 16px;
     font-size: 0.85rem;

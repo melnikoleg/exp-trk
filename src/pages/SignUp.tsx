@@ -53,7 +53,8 @@ const SignUp = () => {
           status?: number;
         };
       };
-      const errorMessage = error.response?.data?.message || "Registration failed";
+      const errorMessage =
+        error.response?.data?.message || "Registration failed";
       setApiError(errorMessage);
     }
   };
@@ -100,7 +101,11 @@ const SignUp = () => {
           {apiError && (
             <div style={{ color: "red", marginBottom: 16 }}>{apiError}</div>
           )}
-          <Button type="submit" disabled={isSubmitting} style={{ width: "100%" }}>
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            style={{ width: "100%" }}
+          >
             Sign Up
           </Button>
         </form>

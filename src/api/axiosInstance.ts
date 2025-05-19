@@ -77,9 +77,11 @@ api.interceptors.response.use(
         const { data } = await axios.post(
           "http://0.0.0.0:8079/api/auth/token",
           refreshData,
-          { 
+          {
             withCredentials: true,
-            headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {}
+            headers: accessToken
+              ? { Authorization: `Bearer ${accessToken}` }
+              : {},
           },
         );
         setAccessToken(data.access_token);
@@ -93,7 +95,6 @@ api.interceptors.response.use(
         isRefreshing = false;
       }
     }
-
 
     return Promise.reject(error);
   },

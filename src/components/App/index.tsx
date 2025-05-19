@@ -23,15 +23,15 @@ const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 // Navigation tracking component to monitor route changes
 const NavigationTracker = () => {
   const location = useLocation();
-  
+
   useEffect(() => {
     // Track page navigation for better error context
-    trackUserAction('navigation', { 
+    trackUserAction("navigation", {
       path: location.pathname,
-      search: location.search
+      search: location.search,
     });
   }, [location.pathname, location.search]);
-  
+
   return null;
 };
 
@@ -44,7 +44,7 @@ function App() {
       try {
         const isAuth = await initAuth();
         setIsAuthenticated(isAuth);
-        trackUserAction('auth_status', { isAuthenticated: isAuth });
+        trackUserAction("auth_status", { isAuthenticated: isAuth });
       } catch (error) {
         console.error("Auth initialization failed:", error);
         Sentry.captureException(error);
@@ -56,7 +56,6 @@ function App() {
 
     validateAuth();
   }, [setIsAuthenticated]);
-
 
   if (loading) {
     return <div className="app-loading">Initializing...</div>;
@@ -72,7 +71,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
-          
+
           {/* Public routes - accessible to all users */}
           <Route element={<AuthLayout />}>
             <Route path="sign-in" element={<SignIn />} />
@@ -85,7 +84,7 @@ function App() {
         </SentryRoutes>
       </ErrorBoundary>
       {/* Performance DevTools - only visible in development */}
-      {process.env.NODE_ENV === 'development' && <DevTools />}
+      {process.env.NODE_ENV === "development" && <DevTools />}
     </BrowserRouter>
   );
 }
