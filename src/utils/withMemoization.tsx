@@ -1,18 +1,23 @@
 // src/utils/withMemoization.tsx
-import React from 'react';
+import React, { ComponentType, PropsWithChildren } from 'react';
 import { useRenderMetrics } from '../hooks/useRenderMetrics';
+
+// Define a type for components with whyDidYouRender property
+type ComponentWithWhyDidYouRender<P = any> = ComponentType<P> & {
+  whyDidYouRender?: boolean;
+}
 
 /**
  * Higher-order component that memoizes a component and tracks its render metrics
  * @param Component The component to memoize
  * @param displayName Optional name for the component in devtools
  */
-export function withMemoization<T>(
-  Component: React.ComponentType<T>,
+export function withMemoization<T extends PropsWithChildren<any>>(
+  Component: ComponentType<T>,
   displayName?: string
-): React.MemoExoticComponent<React.ComponentType<T>> {
+) {
   // Create a wrapper component that tracks render metrics
-  const MemoizedWithTracking = (props: T) => {
+  const MemoizedWithTracking = (props: React.PropsWithChildren<T>) => {
     // Use the component's display name or fallback to the function name
     const componentName = displayName || Component.displayName || Component.name || 'UnknownComponent';
     
@@ -33,7 +38,7 @@ export function withMemoization<T>(
  * Adds whyDidYouRender tracking to a component for debugging renders
  * @param Component The component to track
  */
-export function withRenderTracking(Component: React.ComponentType<any>): React.ComponentType<any> {
+export function withRenderTracking<P>(Component: ComponentWithWhyDidYouRender<P>): ComponentWithWhyDidYouRender<P> {
   // Only apply in development
   if (process.env.NODE_ENV === 'development') {
     Component.whyDidYouRender = true;
