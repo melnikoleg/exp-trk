@@ -14,7 +14,7 @@ export const InputWithCurrency: FC<IProps> = ({ selectProps, ...props }) => {
   return (
     <div className={styles.container}>
       <Input {...props} type="number">
-        <Dropdown classname={styles.select} {...selectProps} />
+        <Dropdown className={styles.select} {...selectProps} />
       </Input>
     </div>
   );
