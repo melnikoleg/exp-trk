@@ -40,8 +40,14 @@ const ForgotPassword = () => {
         () => navigate("/verification-code", { state: { email: data.email } }),
         1000,
       );
-    } catch (err: any) {
-      setApiError(err?.response?.data?.message || "Failed to send reset code");
+    } catch (err) {
+      const error = err as Error & {
+        response?: {
+          data?: { message?: string };
+          status?: number;
+        };
+      };
+      setApiError(error.response?.data?.message || "Failed to send reset code");
     } finally {
       setIsLoading(false);
     }

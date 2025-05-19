@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { formatISO, startOfDay } from "date-fns";
-import React, { FC, useEffect, useRef, useMemo, useCallback } from "react";
+import React, { FC, useEffect, useMemo, useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { withMemoization } from "../../utils/withMemoization";
@@ -34,7 +34,7 @@ const schema = yup
   })
   .required();
 
-interface IProps {
+export interface IProps {
   defaultValues?: Inputs;
   onClose: () => void;
   onSubmit: (data: Inputs) => void;
@@ -54,10 +54,7 @@ export const ExpenseForm: FC<IProps> = ({
   onSubmit,
   defaultValues = emptyData,
 }) => {
-  // Track rendering performance
   useRenderMetrics('ExpenseForm');
-
-  const isFirstRender = useRef(true);
 
   // Memoize the default form values to prevent unnecessary rerenders
   const memoizedDefaults = useMemo(() => ({
@@ -73,7 +70,6 @@ export const ExpenseForm: FC<IProps> = ({
     register,
     handleSubmit,
     reset,
-    setValue,
     formState: { errors },
   } = useForm<Inputs>({
     defaultValues: emptyData,
@@ -81,45 +77,12 @@ export const ExpenseForm: FC<IProps> = ({
     mode: "onChange", 
   });
 
+  // Effect to handle form values
   useEffect(() => {
-    if (defaultValues) {
-      console.log("Initial form values being set:", memoizedDefaults);
-
-      reset(
-        memoizedDefaults,
-        {
-          keepDefaultValues: false,
-        },
-      );
+    if (memoizedDefaults) {
+      reset(memoizedDefaults, { keepDefaultValues: false });
     }
-  }, [memoizedDefaults, reset]); 
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-
-
-    if (defaultValues) {
-      
-      const formValues = {
-        name: defaultValues.name || "",
-        amount: defaultValues.amount,
-        category: defaultValues.category || categoryList[0],
-        currency: defaultValues.currency || currencyList[0],
-        date: defaultValues.date || new Date().toISOString().split("T")[0],
-        description: defaultValues.description || '',
-      };
-
-      
-      reset(formValues, {
-        keepDefaultValues: false, 
-      });
-      
-
-    }
-  }, [defaultValues, reset, categoryList, currencyList]);
+  }, [memoizedDefaults, reset]);
 
   useClickEscape(onClose);
 
@@ -208,4 +171,4 @@ export const ExpenseForm: FC<IProps> = ({
 };
 
 // Export a memoized version of the ExpenseForm
-export default withMemoization(ExpenseForm, 'ExpenseForm');
+export default withMemoization<IProps>(ExpenseForm, 'ExpenseForm');

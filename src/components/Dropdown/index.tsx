@@ -2,16 +2,15 @@ import cn from "classnames";
 import { FC, SelectHTMLAttributes } from "react";
 
 import styles from "./index.module.css";
-import { currencyList } from "../../entities";
 
 interface IProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  classname?: string;
+  className?: string;
 }
 
 export const Dropdown: FC<IProps> = ({
   defaultValue,
   onChange,
-  classname,
+  className,
   ...props
 }) => {
   const handleChangeCurrency = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -22,7 +21,7 @@ export const Dropdown: FC<IProps> = ({
 
   return (
     <select
-      className={cn(styles.select, classname)}
+      className={cn(styles.select, className)} // Fix typo: classname -> className
       defaultValue={defaultValue}
       onChange={handleChangeCurrency}
       {...props}

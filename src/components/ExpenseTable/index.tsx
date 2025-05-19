@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef, useState, useMemo } from "react";
+import { FC, useCallback, useRef, useState } from "react";
 
 import { Table, TableBody, TableCell, TableHead, TableRow } from "../Table";
 import { EmptyTable } from "./EmptyTable";
@@ -29,7 +29,6 @@ export const ExpenseTable: FC<IProps<Expense>> = ({
   hasMore,
   onEdit,
   onDelete,
-  onMobileClick,
 }) => {
   const observer = useRef<IntersectionObserver | null>(null);
 

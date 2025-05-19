@@ -18,11 +18,11 @@ const SentryTest: React.FC = () => {
   };
 
   const testUnhandledError = () => {
-    // Simulating an unhandled error
+    // Simulating an unhandled error with type assertion
     setTimeout(() => {
-      const obj: any = null;
-      // This will cause a TypeError: Cannot read properties of null
-      obj.nonExistentProperty.access();
+      type TestObject = { nonExistentProperty: { access: () => void } };
+      // Intentionally causing a runtime error for testing
+      (null as unknown as TestObject).nonExistentProperty.access();
     }, 100);
 
     setTestResult('Triggered unhandled error. Check Sentry dashboard in a moment.');
@@ -33,7 +33,7 @@ const SentryTest: React.FC = () => {
     setTestResult('Running performance test...');
     
     // Use startSpan for performance monitoring in latest Sentry versions
-    Sentry.startSpan({ name: 'Test Transaction', op: 'test' }, async (span) => {
+    Sentry.startSpan({ name: 'Test Transaction', op: 'test' }, async () => {
       try {
         // Add some breadcrumbs for tracking
         Sentry.addBreadcrumb({

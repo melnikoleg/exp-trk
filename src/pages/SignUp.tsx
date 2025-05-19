@@ -29,8 +29,8 @@ export type SignUpInputs = {
 };
 
 const SignUp = () => {
-  const [success, setSuccess] = useState(false);
   const [apiError, setApiError] = useState("");
+  const [success, setSuccess] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -43,11 +43,18 @@ const SignUp = () => {
   const onSubmit = async (data: SignUpInputs) => {
     setApiError("");
     try {
-      await api.post("/auth/sign-up", data);
+      await api.post("/auth/register", data);
       setSuccess(true);
       setTimeout(() => navigate("/sign-in"), 1500);
-    } catch (err: any) {
-      setApiError(err?.response?.data?.message || "Registration failed");
+    } catch (err) {
+      const error = err as Error & {
+        response?: {
+          data?: { message?: string };
+          status?: number;
+        };
+      };
+      const errorMessage = error.response?.data?.message || "Registration failed";
+      setApiError(errorMessage);
     }
   };
 
@@ -99,7 +106,10 @@ const SignUp = () => {
         </form>
       )}
       <div className={styles["form-footer"]}>
-        Already have an account? <Link to="/sign-in" className={styles.link}>Sign In</Link>
+        Already have an account?{" "}
+        <Link to="/sign-in" className={styles.link}>
+          Sign In
+        </Link>
       </div>
     </div>
   );

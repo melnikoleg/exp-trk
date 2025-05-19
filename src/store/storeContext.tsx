@@ -181,12 +181,12 @@ const StoreProvider = ({ children }: { children: React.ReactNode }) => {
       );
       try {
         await updateExpense(id, data);
-      } catch (e) {
-        // Rollback if error
-        await handleFetchExpenses({ fromDate, toDate });
+      } catch {
+        // Rollback by refetching current data
+        handleFetchExpenses({ fromDate, toDate });
       }
     },
-    [updateExpense, handleFetchExpenses, fromDate, toDate],
+    [fromDate, toDate, handleFetchExpenses],
   );
 
   const handleEditExpense = useCallback(
@@ -247,11 +247,12 @@ const StoreProvider = ({ children }: { children: React.ReactNode }) => {
       setExpenses((prev) => prev.filter((x) => x.id !== id));
       try {
         await deleteExpense(id);
-      } catch (e) {
-        await handleFetchExpenses({ fromDate, toDate });
+      } catch {
+        // Rollback by refetching current data
+        handleFetchExpenses({ fromDate, toDate });
       }
     },
-    [deleteExpense, handleFetchExpenses, fromDate, toDate],
+    [fromDate, toDate, handleFetchExpenses],
   );
 
   const handleSetFromDate = useCallback(

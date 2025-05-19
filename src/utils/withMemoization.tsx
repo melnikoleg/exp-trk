@@ -1,9 +1,9 @@
 // src/utils/withMemoization.tsx
-import React, { ComponentType, PropsWithChildren } from 'react';
+import React, { ComponentType } from 'react';
 import { useRenderMetrics } from '../hooks/useRenderMetrics';
 
 // Define a type for components with whyDidYouRender property
-type ComponentWithWhyDidYouRender<P = any> = ComponentType<P> & {
+type ComponentWithWhyDidYouRender<P = Record<string, unknown>> = ComponentType<P> & {
   whyDidYouRender?: boolean;
 }
 
@@ -12,7 +12,7 @@ type ComponentWithWhyDidYouRender<P = any> = ComponentType<P> & {
  * @param Component The component to memoize
  * @param displayName Optional name for the component in devtools
  */
-export function withMemoization<T extends PropsWithChildren<any>>(
+export function withMemoization<T = Record<string, unknown>>(
   Component: ComponentType<T>,
   displayName?: string
 ) {

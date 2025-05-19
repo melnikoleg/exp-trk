@@ -73,9 +73,10 @@ export const Layout: FC<IProps> = ({ children }) => {
 
       await createExpense(expenseData);
       setIsUploadModalOpen(false);
-    } catch (err: any) {
+    } catch (err) {
+      const error = err as Error & { response?: { data?: { message?: string } } };
       setUploadError(
-        err?.response?.data?.message || "Failed to extract invoice data.",
+        error.response?.data?.message || "Failed to extract invoice data.",
       );
     } finally {
       setUploadLoading(false);

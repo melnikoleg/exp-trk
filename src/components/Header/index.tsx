@@ -1,13 +1,10 @@
 import cn from "classnames";
-import { FC, memo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { FC, memo } from "react";
+import { Link } from "react-router-dom";
 
 import { Logo } from "../Logo";
 import { Icon } from "../Icon";
 import styles from "./index.module.css";
-import { Menu, MenuItem } from "../Menu";
-import { logout } from "../../api/user";
-import { useStore } from "../../store/storeContext";
 
 interface IProps {
   children?: React.ReactNode;

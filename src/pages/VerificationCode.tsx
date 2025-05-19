@@ -47,7 +47,7 @@ const VerificationCode = () => {
 
     try {
       navigate("/restore-password", { state: { email, code: data.code } });
-    } catch (err) {
+    } catch {
       setApiError("Failed to verify code");
     } finally {
       setIsLoading(false);

@@ -1,6 +1,20 @@
 // Sentry configuration for error tracking and performance monitoring
 import * as Sentry from '@sentry/react';
 
+
+
+interface ErrorContext {
+  context?: string;
+  action?: string;
+  errorType?: string | number;
+  errorMessage?: string;
+  [key: string]: unknown;
+}
+
+interface UserAction {
+  [key: string]: string | number | boolean;
+}
+
 /**
  * Initialize Sentry for error tracking and performance monitoring.
  * This should be called before the app renders.
@@ -42,7 +56,7 @@ export const initSentry = (userId?: string, environment = 'production') => {
  * @param userId User's unique identifier
  * @param additionalData Additional user data like email, name, etc.
  */
-export const setUserContext = (userId: string, additionalData: Record<string, any> = {}) => {
+export const setUserContext = (userId: string, additionalData: Record<string, unknown> = {}) => {
   Sentry.setUser({
     id: userId,
     ...additionalData
@@ -61,7 +75,7 @@ export const clearUserContext = () => {
  * @param key Context key
  * @param value Context value
  */
-export const setExtraContext = (key: string, value: any) => {
+export const setExtraContext = (key: string, value: unknown) => {
   Sentry.setExtra(key, value);
 };
 
@@ -70,7 +84,7 @@ export const setExtraContext = (key: string, value: any) => {
  * @param error Error object
  * @param context Additional context information
  */
-export const captureException = (error: Error, context?: Record<string, any>) => {
+export const captureException = (error: Error, context?: ErrorContext) => {
   if (context) {
     Sentry.withScope((scope) => {
       Object.entries(context).forEach(([key, value]) => {
@@ -100,7 +114,7 @@ export const captureMessage = (
  * @param action Action name
  * @param data Associated data
  */
-export const trackUserAction = (action: string, data: Record<string, any> = {}) => {
+export const trackUserAction = (action: string, data: UserAction = {}) => {
   Sentry.addBreadcrumb({
     category: 'user-action',
     message: action,

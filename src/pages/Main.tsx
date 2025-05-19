@@ -1,7 +1,7 @@
 import ExpenseTable from "../components/ExpenseTable";
 import { useStore } from "../store/storeContext";
 import { Layout } from "../components/Layout";
-import { useEffect, useCallback } from "react";
+import { useEffect } from "react";
 import { withMemoization } from "../utils/withMemoization";
 import { useRenderMetrics } from "../hooks/useRenderMetrics";
 import { useOptimizedCallback } from "../hooks/useOptimizedHandlers";

@@ -21,6 +21,11 @@ const schema = yup.object().shape({
     .required("Confirm your password"),
 });
 
+interface LocationState {
+  email: string;
+  code: string;
+}
+
 type RestorePasswordInputs = {
   password: string;
   confirmPassword: string;
@@ -32,7 +37,7 @@ const RestorePassword = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  const { email, code } = location.state || {};
+  const { email, code } = (location.state || {}) as Partial<LocationState>;
 
   useEffect(() => {
     if (!email || !code) {
@@ -52,15 +57,25 @@ const RestorePassword = () => {
     setApiError("");
     setIsLoading(true);
     try {
+      if (!email || !code) {
+        throw new Error("Missing required data");
+      }
+
       await restorePassword({
         email,
         code,
         password: data.password,
       });
+
       setSuccess(true);
-      setTimeout(() => navigate("/success"), 1000);
-    } catch (err: any) {
-      setApiError(err?.response?.data?.message || "Failed to reset password");
+      setTimeout(() => navigate("/sign-in"), 1500);
+    } catch (err) {
+      const error = err as Error & {
+        response?: {
+          data?: { message?: string };
+        };
+      };
+      setApiError(error.response?.data?.message || "Failed to reset password");
     } finally {
       setIsLoading(false);
     }

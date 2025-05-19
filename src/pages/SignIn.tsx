@@ -7,7 +7,7 @@ import { Input } from "../components/Input";
 import { InputLabel } from "../components/InputLabel";
 import { Button } from "../components/Button";
 import styles from "../components/AuthLayout/index.module.css";
-import api, { setAccessToken, clearAccessToken } from "../api/axiosInstance";
+import api, { setAccessToken } from "../api/axiosInstance";
 import { useStore } from "../store/storeContext";
 import { trackUserAction, captureException } from "../utils/sentry";
 
@@ -59,22 +59,29 @@ const SignIn = () => {
       setIsAuthenticated(true);
       trackUserAction('sign_in_success', { email: data.email });
       navigate(from, { replace: true });
-    } catch (err: any) {
-      const errorMessage = err?.response?.data?.message || "Invalid credentials";
+    } catch (err) {
+      // Type assertion to Error to satisfy captureException requirements
+      const error = err as Error & { 
+        response?: { 
+          data?: { message?: string }, 
+          status?: number 
+        } 
+      };
+      const errorMessage = error.response?.data?.message || "Invalid credentials";
       setApiError(errorMessage);
       
       // Track login failures for security monitoring
-      captureException(err, {
+      captureException(error, {
         context: 'Authentication',
         action: 'sign_in',
-        errorType: err?.response?.status || 'unknown',
+        errorType: error.response?.status || 'unknown',
         errorMessage
       });
       
       trackUserAction('sign_in_failed', {
         email: data.email,
         reason: errorMessage,
-        statusCode: err?.response?.status
+        statusCode: error.response?.status || 0
       });
     }
   };

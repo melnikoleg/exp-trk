@@ -32,7 +32,8 @@ export async function restorePassword(
 export async function logout(): Promise<void> {
   try {
     await api.post("/auth/logout");
-  } catch (error) {
+  } catch {
+    // Error handling is done in finally block
   } finally {
     clearAccessToken();
   }

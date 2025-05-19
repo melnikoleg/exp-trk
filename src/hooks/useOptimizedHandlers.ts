@@ -8,11 +8,11 @@ import { useCallback, useMemo, DependencyList, useRef } from 'react';
  * @param deps Dependencies array for the callback
  * @param name Optional name for tracking
  */
-export function useOptimizedCallback<T extends (...args: any[]) => any>(
-  callback: T,
+export function useOptimizedCallback<Args extends unknown[], Return>(
+  callback: (...args: Args) => Return,
   deps: DependencyList,
   name?: string
-): T {
+): (...args: Args) => Return {
   // Track when this callback is recreated
   const isFirstRender = useFirstRenderTracker();
   
