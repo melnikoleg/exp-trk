@@ -1,4 +1,4 @@
-import { expect, beforeAll } from 'vitest';
+import {beforeAll } from 'vitest';
 import '@testing-library/jest-dom';
 import { setProjectAnnotations } from '@storybook/react';
 import * as projectAnnotations from './preview';
