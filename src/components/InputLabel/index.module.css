@@ -1,0 +1,14 @@
+.container {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 0.8rem;
+  color: var(--neutral-3);
+  font-weight: 500;
+}
+
+@media (width <= 768px) {
+  .container {
+    font-size: 0.857rem;
+    margin-bottom: 5px;
+  }
+}

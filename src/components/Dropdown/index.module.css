@@ -1,0 +1,9 @@
+.select {
+  border-radius: var(--border-radius);
+  height: 44px;
+  border: 1px solid #cbcbcb;
+  padding: 12px;
+  display: block;
+  width: 100%;
+  font-size: 0.9rem;
+}

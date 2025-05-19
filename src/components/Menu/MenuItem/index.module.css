@@ -1,0 +1,13 @@
+.item {
+  cursor: pointer;
+  border-bottom: 1px solid var(--neutral-6);
+  padding: 16px 12px;
+}
+
+.item:hover {
+  background-color: var(--neutral-5);
+}
+
+.item:last-child {
+  border-bottom: none;
+}

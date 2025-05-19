@@ -1,0 +1,8 @@
+.container {
+  cursor: pointer;
+  line-height: 0;
+}
+
+.container svg:hover {
+  fill: var(--primary-1);
+}

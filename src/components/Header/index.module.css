@@ -1,0 +1,40 @@
+.header {
+  background-color: var(--primary-1);
+  display: flex;
+  align-items: center;
+  height: 80px;
+  padding: 16px 24px;
+  font-size: 20px;
+  color: var(--neutral);
+  font-weight: 500;
+}
+
+.logo {
+  display: inline-flex;
+  line-height: 0;
+}
+
+.title {
+  display: none;
+}
+
+.profileIcon {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.profileIcon:hover {
+  opacity: 0.7;
+}
+
+@media (width <= 768px) {
+  .logo {
+    display: none;
+  }
+
+  .title {
+    display: block;
+  }
+}

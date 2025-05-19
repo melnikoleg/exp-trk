@@ -1,0 +1,15 @@
+.container {
+  position: relative;
+}
+
+.select {
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  bottom: 4px;
+  border: none !important;
+  z-index: 1;
+  width: 80px !important;
+  text-align: center;
+  height: auto !important;
+}

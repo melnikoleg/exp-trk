@@ -1,0 +1,36 @@
+.container {
+  padding: 20px;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #f6f8fa;
+  margin: 20px 0;
+  max-width: 800px;
+}
+
+.description {
+  margin-bottom: 20px;
+  color: #24292e;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.result {
+  padding: 12px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: #666;
+  padding: 8px;
+  border-left: 4px solid #0366d6;
+  background-color: #f1f8ff;
+}

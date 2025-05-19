@@ -1,0 +1,68 @@
+:root {
+  --primary-1: #3629b7;
+  --primary-2: #5655b9;
+  --primary-3: #a8a3d7;
+  --primary-4: #f2f1f9;
+  --neutral: #fff;
+  --neutral-1: #343434;
+  --neutral-2: #898989;
+  --neutral-3: #989898;
+  --neutral-4: #cacaca;
+  --neutral-5: #e0e0e0;
+  --neutral-6: #d9d9d9;
+  --dark: #343434;
+  --error: #ff4267;
+  --info: #0890fe;
+  --warning: #ffaf2a;
+  --success: #52d5ba;
+  --border-radius: 15px;
+  --box-shadow:
+    0px 1px 2px 0px rgb(0 0 0 / 30%), 0px 2px 6px 2px rgb(0 0 0 / 15%);
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  box-sizing: border-box;
+  font-family: Poppins, serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.5;
+  min-width: 320px;
+}
+
+@media (width <= 960px) {
+  html,
+  body {
+    font-size: 14px;
+  }
+}
+
+@media (width <= 768px) {
+  html,
+  body {
+    font-size: 12px;
+  }
+}
+
+img {
+  max-width: 100%;
+}
+
+.app-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 24px;
+  color: var(--primary-1);
+  background-color: var(--primary-4);
+}

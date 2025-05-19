@@ -1,0 +1,23 @@
+.text {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 16px;
+  color: red;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+@keyframes fadeInConfirm {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

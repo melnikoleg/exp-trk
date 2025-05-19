@@ -1,0 +1,44 @@
+.sidebar {
+  width: 325px;
+  background-color: var(--neutral);
+  padding: 15px 20px 18px;
+  height: calc(100vh - 80px);
+  position: fixed;
+  top: 80px;
+  right: 0;
+  z-index: 10;
+  overflow-y: auto;
+  animation: slice-right 0.3s ease;
+}
+
+@media (width <= 768px) {
+  .sidebar {
+    width: 100%;
+    border-radius: var(--border-radius);
+    position: relative;
+    top: 0;
+    height: auto;
+    flex: 1;
+    animation: slice-up 0.3s ease;
+  }
+}
+
+@keyframes slice-right {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slice-up {
+  0% {
+    transform: translateY(50%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}

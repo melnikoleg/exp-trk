@@ -1,0 +1,76 @@
+.stub-line {
+  height: 23px;
+  width: 100%;
+}
+
+.stub-line,
+.stub-square {
+  background-color: var(--neutral-6);
+  border-radius: 12px;
+  animation: shine 1s ease infinite;
+}
+
+.stub-square {
+  width: 49px;
+  height: 49px;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+.stub-head-container {
+  display: flex;
+  align-items: center;
+}
+
+.cell1 .stub-line {
+  flex: 1;
+  min-width: 0;
+  max-width: 190px;
+  display: inline-block;
+}
+
+.cell2 .stub-line {
+  max-width: 145px;
+}
+
+.cell3 .stub-line {
+  max-width: 110px;
+}
+
+.cell4 .stub-line {
+  max-width: 75px;
+}
+
+@media (width <= 768px) {
+  .cell2,
+  .cell3,
+  .cell5 {
+    display: none;
+  }
+
+  .cell1 {
+    width: 60%;
+  }
+
+  .cell4 {
+    width: 40%;
+  }
+
+  .cell4 .stub-line {
+    margin-left: auto;
+  }
+}
+
+@keyframes shine {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

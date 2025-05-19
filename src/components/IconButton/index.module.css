@@ -1,0 +1,32 @@
+.button {
+  color: var(--neutral);
+  border: none;
+  border-radius: 50%;
+  transition: 0.3s ease background-color;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-size-sm {
+  height: 36px;
+  width: 36px;
+}
+
+.button-size-md {
+  height: 72px;
+  width: 72px;
+}
+
+.button-type-primary {
+  background-color: var(--primary-1);
+}
+
+.button-type-transparent {
+  background: none;
+}
+
+.button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}

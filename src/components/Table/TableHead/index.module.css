@@ -1,0 +1,17 @@
+.head {
+  border-bottom: 1px solid var(--neutral-6);
+  color: var(--neutral-2);
+  font-size: 1.1rem;
+}
+
+.head :global(.cell) {
+  padding: 33px 7px;
+}
+
+.head :global(.cell):first-child {
+  padding-left: 15px;
+}
+
+.head td {
+  border-collapse: separate;
+}

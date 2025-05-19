@@ -1,0 +1,8 @@
+.icon-container {
+  display: inline-flex;
+  line-height: 0;
+}
+
+input:checked + .icon-container .icon {
+  fill: var(--primary-1);
+}

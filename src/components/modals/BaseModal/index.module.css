@@ -1,0 +1,25 @@
+.container {
+  display: block;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  padding: 20px 30px;
+  box-shadow: var(--box-shadow);
+  background-color: var(--neutral);
+  z-index: 15;
+  border-radius: var(--border-radius);
+  animation: slice-down 0.3s ease;
+  min-width: 280px;
+}
+
+@keyframes slice-down {
+  0% {
+    transform: translate(-50%, 50%);
+  }
+
+  100% {
+    transform: translate(-50%, -50%);
+  }
+}

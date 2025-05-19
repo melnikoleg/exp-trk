@@ -1,0 +1,18 @@
+.container {
+  position: relative;
+  display: inline-flex;
+  z-index: 1;
+}
+
+.menu {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  transform: translate(-100%, 100%);
+  background-color: var(--neutral);
+  box-shadow: var(--box-shadow);
+  list-style: none;
+  padding: 8px 0;
+  min-width: 200px;
+  border-radius: 4px;
+}

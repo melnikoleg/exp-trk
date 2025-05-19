@@ -1,0 +1,10 @@
+.helper-text {
+  display: block;
+  margin-top: 5px;
+  color: var(--neutral-3);
+  font-size: 0.8rem;
+}
+
+.helper-text-error {
+  color: var(--error);
+}

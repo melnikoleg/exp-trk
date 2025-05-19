@@ -1,0 +1,139 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-4);
+  transition: all 0.3s ease;
+}
+
+.card {
+  background: var(--neutral);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 40px 32px;
+  min-width: 320px;
+  max-width: 400px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.box {
+  background: var(--neutral);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  padding: 40px 32px;
+  min-width: 320px;
+  max-width: 400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.header {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.logo {
+  font-family: "Merriweather", serif;
+  font-size: 2rem;
+  color: var(--primary-1);
+  text-align: center;
+  margin: 0;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.title {
+  font-family: "Merriweather", serif;
+  font-size: 2rem;
+  color: var(--primary-1);
+  text-align: center;
+  margin: 0 0 8px 0;
+}
+
+.subtitle {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
+  color: var(--neutral-3);
+  text-align: center;
+  margin: 0 0 24px 0;
+  font-weight: normal;
+}
+
+.content {
+  width: 100%;
+}
+
+.field {
+  margin-bottom: 20px;
+}
+
+.link {
+  color: var(--primary-1);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.form-footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+@media (width <= 768px) {
+  .container {
+    padding: 16px;
+    background: var(--primary-1);
+    min-height: 100svh; /* Use small viewport height for mobile */
+    align-items: flex-start;
+    padding-top: 40px;
+  }
+  
+  .card {
+    padding: 24px 16px;
+    min-width: 0;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .box {
+    padding: 24px 16px;
+    min-width: 0;
+    max-width: 100%;
+    width: 90%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: var(--neutral);
+  }
+  
+  .logo {
+    font-size: 1.3rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+    padding: 0 10px;
+    line-height: 1.4;
+  }
+  
+  .field {
+    margin-bottom: 16px;
+  }
+  
+  .form-footer {
+    margin-top: 16px;
+    font-size: 0.85rem;
+  }
+}

@@ -1,0 +1,25 @@
+.button {
+  background-color: var(--primary-1);
+  color: var(--neutral);
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: center;
+  border-radius: var(--border-radius);
+  transition: 0.3s ease background-color;
+  min-height: 44px;
+}
+
+.button:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.button.danger {
+  background-color: var(--danger-1, #e74c3c);
+  color: #fff;
+}
+
+.button.fullWidth {
+  width: 100%;
+}

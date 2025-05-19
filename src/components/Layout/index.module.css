@@ -1,0 +1,93 @@
+.container {
+  background-color: var(--primary-4);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.content {
+  padding: 60px 20px 120px;
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  position: fixed;
+  right: 48px;
+  bottom: 48px;
+  z-index: 8;
+}
+
+.uploadInvoiceButton {
+  position: fixed;
+  right: 128px;
+  bottom: 48px;
+  z-index: 8;
+}
+
+.layout-background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9;
+  background-color: var(--neutral-1);
+  opacity: 0.4;
+}
+
+@media (width <= 768px) {
+  .header {
+    position: relative;
+  }
+
+  .container {
+    background-color: var(--primary-1);
+    padding-bottom: 20px;
+  }
+
+  .content {
+    background-color: var(--neutral);
+    border-radius: var(--border-radius);
+    padding: 14px 24px 24px;
+  }
+
+  .button {
+    width: 36px;
+    height: 36px;
+    right: 15px;
+    bottom: 34px;
+  }
+
+  .uploadInvoiceButton {
+    width: 36px;
+    height: 36px;
+    right: 65px;
+    bottom: 34px;
+  }
+
+  .button svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .layout-background {
+    display: none;
+  }
+
+  .sidebar-container {
+    position: absolute;
+    inset: 0;
+    flex-direction: column;
+    z-index: 10;
+  }
+}

@@ -1,0 +1,64 @@
+.container {
+  display: block;
+  width: 100%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.8rem;
+  color: var(--neutral-3);
+  font-weight: 500;
+}
+
+.input {
+  height: 44px;
+  border-radius: var(--border-radius);
+  border: 1px solid #cbcbcb;
+  padding: 12px;
+  display: block;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+.input-error {
+  border-color: var(--error);
+  animation: horizontal-shaking 0.3s normal forwards ease-in-out;
+}
+
+.input-container {
+  position: relative;
+  display: block;
+}
+
+.with-children {
+  padding-right: 100px;
+}
+
+@media (width <= 768px) {
+  .input {
+    font-size: 1rem;
+  }
+}
+
+@keyframes horizontal-shaking {
+  0% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(5px);
+  }
+
+  50% {
+    transform: translateX(-5px);
+  }
+
+  75% {
+    transform: translateX(5px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}

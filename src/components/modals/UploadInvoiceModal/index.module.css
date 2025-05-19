@@ -1,0 +1,61 @@
+.uploadContainer {
+  background: #fff;
+  border-radius: 8px;
+  padding: 32px 24px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 320px;
+}
+
+.uploadContainer h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.uploadContainer p:first-of-type {
+  margin-top: 0;
+  margin-bottom: 24px;
+  color: #666;
+  text-align: center;
+}
+.dragActive {
+  border: 2px dashed #0070f3;
+  background: #f0f8ff;
+}
+.browse {
+  color: #0070f3;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.fileInfo {
+  margin: 12px 0;
+  color: #333;
+}
+.error {
+  color: #d32f2f;
+  margin: 8px 0;
+}
+.uploadButton {
+  margin-top: 16px;
+  background: #0070f3;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 24px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.uploadButton:disabled {
+  background: #b3d1f7;
+  cursor: not-allowed;
+}
+.cancelButton {
+  margin-top: 8px;
+  background: transparent;
+  color: #333;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}

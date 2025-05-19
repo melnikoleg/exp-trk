@@ -1,0 +1,29 @@
+.cell1 {
+  width: 50%;
+}
+
+.cell2 {
+  width: 18%;
+}
+
+.cell3 {
+  width: 14%;
+}
+
+.cell4 {
+  width: 10%;
+}
+
+.cell5 {
+  width: 8%;
+}
+
+.body {
+  min-height: calc(100vh - 300px);
+}
+
+@media (width <= 768px) {
+  .head {
+    display: none;
+  }
+}
